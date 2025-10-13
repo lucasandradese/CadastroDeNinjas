@@ -20,8 +20,13 @@ public class MissoesModel {
     // Incrementação automatica no ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "dificuldade")
     private String dificuldade;
 
     // OneToMany -> relaciona 1 missão pode ter n ninjas
