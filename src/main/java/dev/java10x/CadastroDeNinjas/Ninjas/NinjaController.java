@@ -5,36 +5,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
-
+@RequestMapping("/ninjas")
 public class NinjaController {
 
     // Adicionar ninja (CREATE)
-    @PostMapping("/cadastrarNinja")
+    @PostMapping("/cadastrar")
     public String criarNinja(){
         return "Ninja criado";
     }
 
     // Mostrar todos os ninjas (READ)
-    @GetMapping("/monstarTodosNinjas")
+    @GetMapping("/monstarTodos")
     public String monstarTodosNinjas(){
         return "Lista de ninjas cadastrados";
     }
 
     // Procurar ninja por ID (READ)
-    @GetMapping("/mostarNinjaId")
+    @GetMapping("/mostarID")
     public String procurarNinjaID(){
         return "Ninja encontrado por ID";
     }
 
     // Alterar dados no ninja por ID (UPDATE)
-   @PutMapping("/alterarNinjaID")
+   @PutMapping("/alterarID")
     public String alterarNinjaID(){
         return "Alterado dados do ninja com sucesso";
     }
 
     //Deletar ninja do cadastro por ID (DELETE)
-    @DeleteMapping("/deletarNinjaID")
+    @DeleteMapping("/deletarID")
     public String deletarNinjaID(){
         return "Ninja deletado";
     }
