@@ -7,31 +7,31 @@ import org.springframework.web.bind.annotation.*;
 public class MissoesController {
 
     // POST -- Mandar uma requisição para criar missao (CREATE)
-    @PostMapping("/cadastrar")
+    @PostMapping("/criar")
     public String criarMissao(){
         return "Missao criada";
     }
 
     // GET -- Mandar uma requisição para mostrar todas os missoes (READ)
-    @GetMapping("/monstarTodos")
+    @GetMapping("/listar")
     public String monstarTodasMissoes(){
         return "Lista de missoes cadastradas";
     }
 
     // GET -- Mandar uma requisição para procurar missao por ID (READ)
-    @GetMapping("/mostarID")
+    @GetMapping("/listarId")
     public String procurarMissaoID(){
         return "Missao encontrado por ID";
     }
 
     // PUT -- Mandar uma requisição para alterar dados no missao por ID (UPDATE)
-   @PutMapping("/alterarID")
+   @PutMapping("/alterar")
     public String alterarMissaoID(){
         return "Alterado dados da missao com sucesso";
     }
 
     //DELETE -- Mandar uma requisição para deletar missao do cadastro por ID (DELETE)
-    @DeleteMapping("/deletarID")
+    @DeleteMapping("/deletar")
     public String deletarMissaoID(){
         return "Missao deletada";
     }
