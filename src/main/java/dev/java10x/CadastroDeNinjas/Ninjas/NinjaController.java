@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
+import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,13 +30,13 @@ public class NinjaController{
     // Procurar ninja por ID (READ)
     @GetMapping("/listar/{id}")
     public NinjaModel listarNinjaId(@PathVariable Long id){
-        return ninjaService.listaPorId(id);
+        retucgrn ninjaService.listaPorId(id);
     }
 
     // Alterar dados no ninja por ID (UPDATE)
-   @PutMapping("/alterar")
-    public String alterarNinjaID(){
-        return "Alterado dados do ninja com sucesso";
+   @PutMapping("/alterar/{id}")
+    public NinjaModel alterarNinjaID(@PathVariable Long id, NinjaModel ninjaAtualizado){
+        return ninjaService.alterarDados(id, ninjaAtualizado);
     }
 
     //Deletar ninja do cadastro por ID (DELETE)
@@ -43,7 +44,4 @@ public class NinjaController{
     public void deletarNinjaID(@PathVariable Long id){
         ninjaService.deletarNinja(id);
     }
-
-
-
 }

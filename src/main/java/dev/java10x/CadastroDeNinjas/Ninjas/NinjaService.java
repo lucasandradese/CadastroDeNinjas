@@ -15,24 +15,32 @@ public class NinjaService {
     }
 
     // Listar todos os ninjas
-    public List<NinjaModel> listarNinja(){
+    public List<NinjaModel> listarNinja() {
         return ninjaRepository.findAll();
     }
 
     // Listar Ninjas por ID
-    public NinjaModel listaPorId(Long id){
+    public NinjaModel listaPorId(Long id) {
         Optional<NinjaModel> ninjaPorId = ninjaRepository.findById(id);
-        return  ninjaPorId.orElse(null);
+        return ninjaPorId.orElse(null);
     }
 
     // Criar um novo ninja
-    public NinjaModel criarNinja(NinjaModel ninja){
+    public NinjaModel criarNinja(NinjaModel ninja) {
         return ninjaRepository.save(ninja);
     }
 
     // Deletar ninja cadastrado - tem que ser um metodo void
-    public void deletarNinja(Long id){
+    public void deletarNinja(Long id) {
         ninjaRepository.deleteById(id);
     }
 
+    // Alterar dados no ninja cadastro
+    public NinjaModel alterarDados(Long id, NinjaModel ninjaAtualizado) {
+        if (ninjaRepository.existsById(id)) {
+            ninjaAtualizado.setId(id);
+            return ninjaRepository.save(ninjaAtualizado);
+        }
+        return null;
+    }
 }
