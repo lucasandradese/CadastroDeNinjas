@@ -45,9 +45,9 @@ public class NinjaService {
     }
 
     // Alterar dados no ninja cadastro
-    public NinjaDTO alterarDados(Long id, NinjaDTO ninjaDTO) {
+    public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO) {
         Optional<NinjaModel> ninjaExistente = ninjaRepository.findById(id);
-        if(ninjaExistente.isPresent()) {
+        if (ninjaExistente.isPresent()) {
             NinjaModel ninjaAtualizado = ninjaMapper.map(ninjaDTO);
             ninjaAtualizado.setId(id);
             NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
