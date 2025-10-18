@@ -1,0 +1,37 @@
+<!
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Tabela de ninjas</title>
+</head>
+<body>
+<h1>Lista de Ninjas</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Imagem</th>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Email</th>
+        <th>Rank</th>
+        <th>Missao</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each ="ninja: ${ninjas}">
+            <td><img th:src="${ninja.img_url}" width="50" height="50"></td>
+            <td th:text="${ninja.id}"></td>
+            <td th:text="${ninja.nome}"></td>
+            <td th:text="${ninja.idade}"></td>
+            <td th:text="${ninja.email}"></td>
+            <td th:text="${ninja.rank}"></td>
+            <td th:text="${ninja.missoes}"></td>
+        </tr>
+
+    </tbody>
+</table>
+
+
+</body>
+</html>
