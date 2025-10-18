@@ -25,7 +25,7 @@ public class MissoesController {
     }
 
     // PUT -- Mandar uma requisição para alterar dados no missao por ID (UPDATE)
-   @PutMapping("/alterar")
+   @PatchMapping("/alterar")
     public String alterarMissaoID(){
         return "Alterado dados da missao com sucesso";
     }
