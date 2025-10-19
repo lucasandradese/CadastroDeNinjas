@@ -47,7 +47,7 @@ public class NinjaController{
 
     // Procurar ninja por ID (READ)
     @GetMapping("/listar/{id}")
-    @Operation(summary = "Listar ninja por ID", description = "A rota envia uma lista completa do ninja de acrodo com id enviado")
+    @Operation(summary = "Listar ninja por ID", description = "A rota envia uma lista completa do ninja de acordo com id enviado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Lista de ninja enviado com sucesso"),
             @ApiResponse(responseCode = "404", description = "Ninja não encontrado com Id informado")

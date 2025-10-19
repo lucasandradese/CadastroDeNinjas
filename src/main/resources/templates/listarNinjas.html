@@ -1,37 +1,197 @@
-<!
+<!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Tabela de ninjas</title>
+    <title>Tabela de Ninjas</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <style>
+        /* ======= ESTILO GERAL ======= */
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #f2f4f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        /* ======= BOTÃO CADASTRAR ======= */
+        .btn-cadastrar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            background: linear-gradient(135deg, #4e4376, #2b5876);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(75, 70, 120, 0.3);
+            transition: all 0.3s ease;
+            margin-left: 2.5%;
+        }
+
+        .btn-cadastrar i {
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+
+        .btn-cadastrar:hover {
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(75, 70, 120, 0.4);
+        }
+
+        .btn-cadastrar:hover i {
+            transform: rotate(-15deg) scale(1.1);
+        }
+
+        /* ======= TABELA ======= */
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: center;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.3s;
+        }
+
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        /* ======= IMAGENS ======= */
+        img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
+
+        /* ======= ÍCONES ======= */
+        td a {
+            margin: 0 5px;
+            text-decoration: none;
+        }
+
+        td i {
+            font-size: 1.2rem;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Cores e hovers dos ícones */
+        .fa-magnifying-glass-plus { color: #2b5876; }
+        .fa-user-pen { color: #f0a500; }
+        .fa-trash { color: #e63946; }
+
+        .fa-magnifying-glass-plus:hover {
+            background: #2b5876; color: #fff; transform: scale(1.1);
+        }
+        .fa-user-pen:hover {
+            background: #f0a500; color: #fff; transform: scale(1.1);
+        }
+        .fa-trash:hover {
+            background: #e63946; color: #fff; transform: scale(1.1);
+        }
+
+        /* ======= RESPONSIVIDADE ======= */
+        @media (max-width: 768px) {
+            table { font-size: 0.9rem; }
+            img { width: 45px; height: 45px; }
+            th, td { padding: 10px; }
+            .btn-cadastrar {
+                width: 90%;
+                margin: 0 auto;
+                justify-content: center;
+                display: flex;
+            }
+        }
+    </style>
 </head>
+
 <body>
 <h1>Lista de Ninjas</h1>
+
+<!-- BOTÃO CADASTRAR NINJA -->
+<a th:href="@{/ninjas/ui/cadastrar}" class="btn-cadastrar">
+    <i class="fa-solid fa-user-plus"></i> Cadastrar Ninja
+</a>
+
 <table>
     <thead>
     <tr>
         <th>Imagem</th>
-        <th>ID</th>
         <th>Nome</th>
-        <th>Idade</th>
-        <th>Email</th>
         <th>Rank</th>
-        <th>Missao</th>
+        <th>Missão atual</th>
+        <th>Dificuldade</th>
+        <th>Ações</th>
     </tr>
     </thead>
-    <tbody>
-        <tr th:each ="ninja: ${ninjas}">
-            <td><img th:src="${ninja.img_url}" width="50" height="50"></td>
-            <td th:text="${ninja.id}"></td>
-            <td th:text="${ninja.nome}"></td>
-            <td th:text="${ninja.idade}"></td>
-            <td th:text="${ninja.email}"></td>
-            <td th:text="${ninja.rank}"></td>
-            <td th:text="${ninja.missoes}"></td>
-        </tr>
 
+    <tbody>
+    <tr th:each="ninja : ${ninjas}">
+        <td><img th:src="${ninja.img_url}" alt="Imagem do ninja"></td>
+        <td th:text="${ninja.nome}"></td>
+        <td th:text="${ninja.rank}"></td>
+        <td>
+            <span th:if="${ninja.missoes != null}" th:text="${ninja.missoes.nome}"></span>
+            <span th:if="${ninja.missoes == null}">Sem missão</span>
+        </td>
+        <td>
+            <span th:if="${ninja.missoes != null}" th:text="${ninja.missoes.dificuldade}"></span>
+            <span th:if="${ninja.missoes == null}">-</span>
+        </td>
+        <td>
+            <a th:href="@{/ninjas/ui/detalhes/{id}(id=${ninja.id})}">
+                <i class="fa-solid fa-magnifying-glass-plus" title="Ver detalhes"></i>
+            </a>
+            <a th:href="@{/ninjas/ui/{id}(id=${ninja.id})}">
+                <i class="fa-solid fa-user-pen" title="Editar ninja"></i>
+            </a>
+            <a th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}"
+               onclick="return confirm('Tem certeza que deseja excluir este ninja?');">
+                <i class="fa-solid fa-trash" title="Excluir ninja"></i>
+            </a>
+        </td>
+    </tr>
     </tbody>
 </table>
-
 
 </body>
 </html>

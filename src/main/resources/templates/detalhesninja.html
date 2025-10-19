@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Ninja</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- SweetAlert2 (para popup de exclusão) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #f2f4f8;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: #fff;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            padding: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border: 4px solid #ddd;
+            margin-right: 30px;
+            transition: transform 0.3s;
+        }
+
+        .profile img:hover {
+            transform: scale(1.05);
+        }
+
+        .details {
+            flex: 1;
+        }
+
+        .details h2 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            color: #2b5876;
+        }
+
+        .details p {
+            margin: 8px 0;
+            font-size: 1rem;
+        }
+
+        .details strong {
+            color: #4e4376;
+        }
+
+        .missions {
+            background: #fafafa;
+            padding: 25px;
+            border-top: 1px solid #eee;
+        }
+
+        .missions h3 {
+            margin-top: 0;
+            color: #2b5876;
+        }
+
+        .missions p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+
+        .actions {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-voltar {
+            background: #4e4376;
+            color: #fff;
+        }
+
+        .btn-editar {
+            background: #f0a500;
+            color: #fff;
+        }
+
+        .btn-deletar {
+            background: #e63946;
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .profile {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile img {
+                margin: 0 0 15px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Detalhes do Ninja</h1>
+    </div>
+
+    <div class="profile">
+        <img th:src="${ninja.img_url}" alt="Imagem do Ninja">
+        <div class="details">
+            <h2 th:text="${ninja.nome}"></h2>
+            <p><strong>ID:</strong> <span th:text="${ninja.id}"></span></p>
+            <p><strong>Idade:</strong> <span th:text="${ninja.idade}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${ninja.email}"></span></p>
+            <p><strong>Rank:</strong> <span th:text="${ninja.rank}"></span></p>
+        </div>
+    </div>
+
+    <div class="missions">
+        <h3>Missão Atual</h3>
+        <div th:if="${ninja.missoes != null}">
+            <p><strong>Nome:</strong> <span th:text="${ninja.missoes.nome}"></span></p>
+            <p><strong>Dificuldade:</strong> <span th:text="${ninja.missoes.dificuldade}"></span></p>
+        </div>
+        <div th:if="${ninja.missoes == null}">
+            <p>Este ninja não está em nenhuma missão no momento.</p>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a th:href="@{/ninjas/ui/listar}" class="btn btn-voltar"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+        <a th:href="@{/ninjas/ui/editar/{id}(id=${ninja.id})}" class="btn btn-editar"><i class="fa-solid fa-pen"></i> Editar</a>
+        <a href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}" th:attr="data-id=${ninja.id}, data-nome=${ninja.nome}" class="btn btn-deletar" onclick="confirmarExclusao(this)">
+            <i class="fa-solid fa-trash"></i> Excluir
+        </a>
+    </div>
+</div>
+
+<!-- Script para popup de confirmação -->
+<script>
+    function confirmarExclusao(elemento) {
+        const id = elemento.getAttribute("data-id");
+        const nome = elemento.getAttribute("data-nome");
+
+        Swal.fire({
+            title: `Excluir ${nome}?`,
+            text: "Esta ação não poderá ser desfeita!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e63946",
+            cancelButtonColor: "#4e4376",
+            confirmButtonText: "Sim, excluir",
+            cancelButtonText: "Cancelar",
+            background: "#f8f9fa",
+            color: "#333"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `/ninjas/ui/deletar/${id}`;
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

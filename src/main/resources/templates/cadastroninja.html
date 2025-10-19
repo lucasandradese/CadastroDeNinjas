@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Ninja</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <style>
+        /* ======= ESTILO GERAL ======= */
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px 50px;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            width: 450px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2b5876;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        input, select {
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: border 0.3s;
+            font-size: 0.95rem;
+        }
+
+        input:focus, select:focus {
+            border-color: #4e4376;
+            box-shadow: 0 0 5px rgba(78, 67, 118, 0.3);
+        }
+
+        /* ======= BOTÕES ======= */
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        /* Estilo compartilhado entre <button> e <a> */
+        button,
+        .btn-cancelar {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none; /* Remove sublinhado do link */
+        }
+
+        .btn-salvar {
+            background: linear-gradient(135deg, #4e4376, #2b5876);
+            color: #fff;
+        }
+
+        .btn-salvar:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+        }
+
+        .btn-cancelar {
+            background: #ccc;
+            color: #333;
+        }
+
+        .btn-cancelar:hover {
+            background: #bbb;
+            transform: scale(1.05);
+        }
+
+        /* ======= RESPONSIVIDADE ======= */
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1><i class="fa-solid fa-user-ninja"></i> Cadastro de Ninja</h1>
+
+    <form th:action="@{/ninjas/salvar}" th:object="${ninja}" method="post">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" th:field="*{nome}" placeholder="Digite o nome do ninja" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" th:field="*{email}" placeholder="exemplo@konoha.com" required>
+
+        <label for="idade">Idade</label>
+        <input type="number" id="idade" th:field="*{idade}" min="10" placeholder="Digite a idade" required>
+
+        <label for="rank">Rank</label>
+        <select id="rank" th:field="*{rank}" required>
+            <option value="">Selecione o rank</option>
+            <option value="Genin">Genin</option>
+            <option value="Chunin">Chunin</option>
+            <option value="Jounin">Jounin</option>
+            <option value="Kage">Kage</option>
+        </select>
+
+        <label for="img_url">URL da Imagem</label>
+        <input type="url" id="img_url" th:field="*{img_url}" placeholder="Cole a URL da imagem">
+
+        <div class="btn-container">
+            <button type="submit" class="btn-salvar">
+                <i class="fa-solid fa-floppy-disk"></i> Salvar
+            </button>
+            <a th:href="@{/ninjas/ui/listar}" class="btn-cancelar">
+                <i class="fa-solid fa-xmark"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
