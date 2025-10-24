@@ -120,7 +120,7 @@
 <div class="container">
     <h1><i class="fa-solid fa-user-ninja"></i> Cadastro de Ninja</h1>
 
-    <form th:action="@{/ninjas/salvar}" th:object="${ninja}" method="post">
+    <form th:action="@{/ninjas/ui/salvar}" th:object="${ninja}" method="post">
         <label for="nome">Nome</label>
         <input type="text" id="nome" th:field="*{nome}" placeholder="Digite o nome do ninja" required>
 
