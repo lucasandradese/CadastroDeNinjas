@@ -41,7 +41,7 @@
             letter-spacing: 0.5px;
             box-shadow: 0 4px 12px rgba(75, 70, 120, 0.3);
             transition: all 0.3s ease;
-            margin-left: 2.5%;
+            margin-left: 8%;
         }
 
         .btn-cadastrar i {
@@ -61,7 +61,7 @@
 
         /* ======= TABELA ======= */
         table {
-            width: 95%;
+            width: 85%;
             margin: 20px auto;
             border-collapse: collapse;
             background: #fff;
@@ -159,7 +159,6 @@
         <th>Nome</th>
         <th>Rank</th>
         <th>Missão atual</th>
-        <th>Dificuldade</th>
         <th>Ações</th>
     </tr>
     </thead>
@@ -172,10 +171,6 @@
         <td>
             <span th:if="${ninja.missoes != null}" th:text="${ninja.missoes.nome}"></span>
             <span th:if="${ninja.missoes == null}">Sem missão</span>
-        </td>
-        <td>
-            <span th:if="${ninja.missoes != null}" th:text="${ninja.missoes.dificuldade}"></span>
-            <span th:if="${ninja.missoes == null}">-</span>
         </td>
         <td>
             <a th:href="@{/ninjas/ui/detalhes/{id}(id=${ninja.id})}">

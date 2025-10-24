@@ -7,10 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -54,4 +52,11 @@ public class NinjaControllerUi {
         model.addAttribute("ninja", new NinjaDTO());
         return "cadastroninja";
     }
+    @PostMapping("/salvar")
+    public String salvarNinja(@ModelAttribute NinjaDTO ninja, RedirectAttributes redirectAttributes) {
+        ninjaService.criarNinja(ninja);
+        redirectAttributes.addFlashAttribute("mensagem", "Ninja cadastrado com sucesso!");
+        return "redirect:/ninjas/ui/listar";
+    }
+
 }
